@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Menu } from 'lucide-react'
+import { motion, useReducedMotion } from 'framer-motion'
 import { siteConfig, navLinks } from '@/config/site'
 import { useScrollPosition } from '@/hooks/useScrollPosition'
 import { cn } from '@/lib/utils'
@@ -14,9 +15,12 @@ import {
   SheetClose,
 } from '@/components/ui/sheet'
 
+const menuEase = [0.22, 1, 0.36, 1]
+
 export function Navbar() {
   const scrolled = useScrollPosition(48)
   const [open, setOpen] = useState(false)
+  const reduceMotion = useReducedMotion()
 
   return (
     <header
@@ -104,25 +108,41 @@ export function Navbar() {
               </SheetTitle>
             </SheetHeader>
             <nav className="mt-10 flex flex-col gap-1" aria-label="Navigation mobile">
-              {navLinks.map((link) => (
+              {navLinks.map((link, index) => (
                 <SheetClose asChild key={link.href}>
-                  <a
+                  <motion.a
                     href={link.href}
                     className="border-b border-[var(--color-border)] py-4 font-display text-2xl text-[var(--color-heading)]"
                     onClick={() => setOpen(false)}
+                    initial={reduceMotion ? false : { opacity: 0, x: 18 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      duration: 0.42,
+                      delay: reduceMotion ? 0 : 0.08 + index * 0.045,
+                      ease: menuEase,
+                    }}
                   >
                     {link.label}
-                  </a>
+                  </motion.a>
                 </SheetClose>
               ))}
             </nav>
-            <div className="mt-auto pt-8">
+            <motion.div
+              className="mt-auto pt-8"
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.4,
+                delay: reduceMotion ? 0 : 0.12 + navLinks.length * 0.045,
+                ease: menuEase,
+              }}
+            >
               <SheetClose asChild>
                 <Button asChild className="w-full" size="lg">
                   <a href="#devis">Demander un devis</a>
                 </Button>
               </SheetClose>
-            </div>
+            </motion.div>
           </SheetContent>
         </Sheet>
       </div>

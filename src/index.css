@@ -222,4 +222,151 @@
   .link-underline:hover {
     background-size: 100% 1px;
   }
+
+  /* Sheet / sidebar — animations CSS (Radix attend animationend pour unmount) */
+  .sheet-overlay[data-state='open'] {
+    animation: sheet-overlay-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .sheet-overlay[data-state='closed'] {
+    animation: sheet-overlay-out 0.32s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+  .sheet-panel[data-state='open'] {
+    animation: sheet-panel-in 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .sheet-panel[data-state='closed'] {
+    animation: sheet-panel-out 0.34s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+  .sheet-panel[data-side='left'][data-state='open'] {
+    animation-name: sheet-panel-in-left;
+  }
+
+  .sheet-panel[data-side='left'][data-state='closed'] {
+    animation-name: sheet-panel-out-left;
+  }
+
+  .sheet-panel[data-side='top'][data-state='open'] {
+    animation-name: sheet-panel-in-top;
+  }
+
+  .sheet-panel[data-side='top'][data-state='closed'] {
+    animation-name: sheet-panel-out-top;
+  }
+
+  .sheet-panel[data-side='bottom'][data-state='open'] {
+    animation-name: sheet-panel-in-bottom;
+  }
+
+  .sheet-panel[data-side='bottom'][data-state='closed'] {
+    animation-name: sheet-panel-out-bottom;
+  }
+}
+
+@keyframes sheet-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes sheet-overlay-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes sheet-panel-in {
+  from {
+    opacity: 0.85;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes sheet-panel-out {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0.9;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes sheet-panel-in-left {
+  from {
+    opacity: 0.85;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes sheet-panel-out-left {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0.9;
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes sheet-panel-in-top {
+  from {
+    opacity: 0.85;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sheet-panel-out-top {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0.9;
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes sheet-panel-in-bottom {
+  from {
+    opacity: 0.85;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sheet-panel-out-bottom {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0.9;
+    transform: translateY(100%);
+  }
 }
